@@ -6,45 +6,223 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta name="robots" content="noindex, nofollow">
 
-    <link rel="stylesheet" type="text/css" href="static/css/thirdparty.min.css">
-    <link rel="stylesheet" type="text/css" href="static/css/main.css">
-    <link rel="stylesheet" type="text/css" href="static/css/media.css">
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js"></script>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 
-    <script src="static/js/application.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .threat-high {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .threat-medium {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+
+        .threat-low {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .table-row:hover {
+            background-color: #f8fafc;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
 </head>
-<body>
-<div class="mb-16">
-    <div class="max-w-[1300px] mx-auto">
-        <div class="p-20 bg-gray-100">
-            <h1 class="text-4xl">Intrusion Prevention System - IDS</h1>
-            <p>By Asadbek Shariyorov</p>
+<body class="bg-gray-50 min-h-screen">
+<!-- Header Section -->
+<div class="gradient-bg shadow-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="py-8 md:py-12">
+            <div class="text-center text-white animate-fadeInUp">
+                <div class="flex items-center justify-center mb-6">
+                    <div class="bg-white bg-opacity-20 p-4 rounded-full mr-4">
+                        <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                  d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-5xl md:text-6xl font-bold tracking-tight">IDS Dashboard</h1>
+                        <p class="text-xl md:text-2xl font-light opacity-90 mt-2">Intrusion Prevention System</p>
+                    </div>
+                </div>
+                <div class="glass-effect rounded-2xl p-6 inline-block">
+                    <p class="text-lg font-medium">Developed by <span class="font-bold text-yellow-300">Asadbek Shariyorov</span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="max-w-[1300px] mx-auto" id="content">
-    <canvas width=60 height=20 id="myChart"></canvas>
-    <div class="row">
-        <p>Tarmoq traffigi oqimi haqidagi maʼlumot quyidagicha:</p>
-        <h3>Ushlab olingan tarmoq trafigi:</h3>
-        <div id="log">
-            <table width="100%" border="1" cellpadding="2" cellspacing="0" class="display compact" id="details">
-            </table>
-        </div> <!-- /#log -->
+<!-- Main Content -->
+<div class="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300">
+            <div class="flex items-center">
+                <div class="bg-blue-100 p-3 rounded-full">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Jami oqimlar</p>
+                    <p class="text-2xl font-bold text-gray-900" id="totalFlows">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300">
+            <div class="flex items-center">
+                <div class="bg-red-100 p-3 rounded-full">
+                    <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                              d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Tahdidlar</p>
+                    <p class="text-2xl font-bold text-gray-900" id="threatCount">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300">
+            <div class="flex items-center">
+                <div class="bg-green-100 p-3 rounded-full animate-pulse-slow">
+                    <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-500">Status</p>
+                    <p class="text-2xl font-bold text-green-600">Aktiv</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Tarmoq oqimlari statistikasi</h2>
+            <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <span class="text-sm text-gray-500">Real vaqt rejimi</span>
+            </div>
+        </div>
+        <div class="relative h-96">
+            <canvas id="myChart" class="w-full h-full"></canvas>
+        </div>
+    </div>
+
+    <!-- Traffic Information -->
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
+            <h2 class="text-2xl font-bold text-white">Ushlab olingan tarmoq trafigi</h2>
+            <p class="text-blue-100 mt-1">Tarmoq traffigi oqimi haqidagi maʼlumot quyidagicha:</p>
+        </div>
+
+        <div class="p-6">
+            <div class="overflow-x-auto">
+                <table class="w-full" id="details">
+                    <thead>
+                    <tr class="border-b-2 border-gray-200">
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Oqim ID</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Manba IP</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Manba port</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Manzil IP</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Manzil port</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Protokol</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Boshlanish vaqti</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Oxirgi kuzatilgan vaqti</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Ilova</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">PID</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Bashorat algoritmi</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Ehtimollik</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Tahdid darajasi</th>
+                        <th class="text-left py-4 px-3 font-semibold text-gray-700 text-sm">Amallar</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    <tr>
+                        <td colspan="14" class="text-center py-12 text-gray-500">
+                            <div class="flex flex-col items-center">
+                                <svg class="w-16 h-16 text-gray-300 mb-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                          d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 5-6v8z"
+                                          clip-rule="evenodd"></path>
+                                </svg>
+                                <p class="text-lg font-medium">Ma'lumotlar yuklanmoqda...</p>
+                                <p class="text-sm">Tarmoq oqimlarini kuzatish davom etmoqda</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
 <noscript>
-    <div id="noscript">
-        Javascript is disabled in your browser. You must have Javascript enabled to utilize the functionality of this
-        page.
+    <div class="fixed inset-0 bg-red-600 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-md text-center">
+            <svg class="w-16 h-16 text-red-600 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                      d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                      clip-rule="evenodd"></path>
+            </svg>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">JavaScript kerak</h2>
+            <p class="text-gray-600">Bu sahifaning funksionalligidan foydalanish uchun JavaScript yoqilgan bo'lishi
+                kerak.</p>
+        </div>
     </div>
 </noscript>
+
+<!-- Include external JavaScript file -->
+<script src="static/js/application.js"></script>
 </body>
 </html>
