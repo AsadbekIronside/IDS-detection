@@ -8,10 +8,12 @@
     #details_info {
         display: none !important;
     }
+
     #details_paginate, #details_filter, #details_filter label {
         text-align: center;
         float: unset;
     }
+
     #details_length {
         display: none !important;
     }

@@ -220,11 +220,11 @@ def classify(features):
     proba = predict_fn_rf([features])
     proba_score = [proba[0].max()]
     proba_risk = sum(list(proba[0,1:]))
-    if proba_risk >0.8: risk = ["<p style=\"color:red;\">Very High</p>"]
-    elif proba_risk >0.6: risk = ["<p style=\"color:orangered;\">High</p>"]
-    if proba_risk >0.4: risk = ["<p style=\"color:orange;\">Medium</p>"]
-    if proba_risk >0.2: risk = ["<p style=\"color:green;\">Low</p>"]
-    else: risk = ["<p style=\"color:limegreen;\">Minimal</p>"]
+    if proba_risk >0.8: risk = ["<p style=\"color:red;\">Juda yuqori</p>"]
+    elif proba_risk >0.6: risk = ["<p style=\"color:orangered;\">Yuqori</p>"]
+    if proba_risk >0.4: risk = ["<p style=\"color:orange;\">O'rtacha</p>"]
+    if proba_risk >0.2: risk = ["<p style=\"color:green;\">Past</p>"]
+    else: risk = ["<p style=\"color:limegreen;\">Juda past</p>"]
 
     # x = K.process(features[0])
     # z_scores = round((x-m)/s,2)
@@ -347,7 +347,7 @@ def snif_and_detect():
         # sniff(iface="en0", prn=newPacket)
         sniff(prn=newPacket)
         for f in current_flows.values():
-            
+
             classify(f.terminated())
 
 
@@ -366,11 +366,11 @@ def flow_detail():
     choosen_instance = X
     proba_score = list(predict_fn_rf(choosen_instance))
     risk_proba =  sum(proba_score[0][1:])
-    if risk_proba >0.8: risk = "Risk: <p style=\"color:red;\">Very High</p>"
-    elif risk_proba >0.6: risk = "Risk: <p style=\"color:orangered;\">High</p>"
-    if risk_proba >0.4: risk = "Risk: <p style=\"color:orange;\">Medium</p>"
-    if risk_proba >0.2: risk = "Risk: <p style=\"color:green;\">Low</p>"
-    else: risk = "Risk: <p style=\"color:limegreen;\">Minimal</p>"
+    if risk_proba >0.8: risk = "Risk: <p style=\"color:red;\">Juda yuqori</p>"
+    elif risk_proba >0.6: risk = "Risk: <p style=\"color:orangered;\">Yuqori</p>"
+    if risk_proba >0.4: risk = "Risk: <p style=\"color:orange;\">O'rtacha</p>"
+    if risk_proba >0.2: risk = "Risk: <p style=\"color:green;\">Past</p>"
+    else: risk = "Risk: <p style=\"color:limegreen;\">Juda past</p>"
     exp = explainer.explain_instance(choosen_instance[0], predict_fn_rf, num_features=6, top_labels = 1)
 
     X_transformed = ae_scaler.transform(X)
@@ -392,22 +392,6 @@ def flow_detail():
     # return render_template('detail.html',  tables=[flow.to_html(classes='data')], titles=flow.columns.values, explain = exp.as_html())
 
     return render_template('detail.html', tables=[flow.reset_index(drop=True).transpose().to_html(classes='data')], exp=exp.as_html(), ae_plot = plot_div, risk = risk) # titles=flow.columns.values, classifier='RF Classifier'
-
-# @app.route('/flow-detail')
-# def flow_detail():
-#     flow_id = request.args.get('flow_id', default = -1, type = int) #/flow-detail?flow_id=x
-#     flow = flow_df.loc[flow_df['FlowID'] == flow_id].values[1:40]
-#     print(flow)
-#     print(type(flow))
-#     X = normalisation.transform([flow])
-#     explainer = lime.lime_tabular.LimeTabularExplainer(X,feature_names = cols, class_names=['Benign' 'Botnet' 'DDoS' 'DoS' 'FTP-Patator' 'Probe' 'SSH-Patator','Web Attack'],kernel_width=5)
-
-#     choosen_instance = X
-#     exp = explainer.explain_instance(choosen_instance, predict_fn_rf,num_features=10)
-#     # exp.show_in_notebook(show_all=False)
-
-
-
 
 @socketio.on('connect', namespace='/test')
 def test_connect():

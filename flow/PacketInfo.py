@@ -1,7 +1,5 @@
 from scapy.layers.inet import IP, UDP, TCP
 import psutil
-
-
 flags = {
     'F': 'FIN',
     'S': 'SYN',
@@ -13,8 +11,6 @@ flags = {
     'C': 'CWR',
     'N': ''
 }
-
-
 class PacketInfo:
     def __init__(self):
         self.src = ""
@@ -35,13 +31,11 @@ class PacketInfo:
         self.header_bytes = 0
         self.packet_size = 0
         self.win_bytes = 0
-
         self.fwd_id = ""
         self.bwd_id = ""
 
         self.pid = None
         self.p_name = ''
-
 
     def setSrc(self, p):
         self.src = p.getlayer(IP).src

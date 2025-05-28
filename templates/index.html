@@ -16,36 +16,35 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <script src="static/js/application.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-  <div class="jumbotron">
-    <h1>APT Detection System</h1>
-    <p>By NVH</p>
-  </div>
+<div class="mb-16">
+    <div class="max-w-[1300px] mx-auto">
+        <div class="p-20 bg-gray-100">
+            <h1 class="text-4xl">Intrusion Prevention System - IDS</h1>
+            <p>By Asadbek Shariyorov</p>
+        </div>
+    </div>
 </div>
-    
 
-
-<div class="container" id="content">
-    <canvas width = 60 height = 20 id="myChart"></canvas>
+<div class="max-w-[1300px] mx-auto" id="content">
+    <canvas width=60 height=20 id="myChart"></canvas>
     <div class="row">
-        <p>Captured flow info here:</p>
-        <h3>Captured flow:</h3>
+        <p>Tarmoq traffigi oqimi haqidagi maʼlumot quyidagicha:</p>
+        <h3>Ushlab olingan tarmoq trafigi:</h3>
         <div id="log">
-        <table width="100%" border="1" cellpadding="2" cellspacing="0" class="display compact" id="details">
-        </table>
+            <table width="100%" border="1" cellpadding="2" cellspacing="0" class="display compact" id="details">
+            </table>
         </div> <!-- /#log -->
     </div>
 </div>
 <noscript>
-  <div id="noscript">
-      Javascript is disabled in your browser. You must have Javascript enabled to utilize the functionality of this page.
-  </div>
+    <div id="noscript">
+        Javascript is disabled in your browser. You must have Javascript enabled to utilize the functionality of this
+        page.
+    </div>
 </noscript>
-
-
 </body>
 </html>

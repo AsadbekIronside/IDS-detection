@@ -4,12 +4,12 @@ $(document).ready(() => {
 
     const messagesReceived = [];
 
-    const ctx = document.getElementById('myChart');
-    const myChart = new Chart(ctx, {
+    const myChart = new Chart(document.getElementById('myChart'), {
         type: 'bar',
         data: {
             labels: [],
             datasets: [{
+                label: 'Tarmoq oqimlari',
                 data: [],
                 backgroundColor: [], // you can add colors here if needed
                 borderColor: [],
@@ -29,19 +29,27 @@ $(document).ready(() => {
     });
 
     socket.on('newresult', (msg) => {
-        console.log('Received result', msg.result);
+        // console.log('Received result', msg.result);
 
-        // Maintain last 10 messages
-        if (messagesReceived.length >= 10) messagesReceived.shift();
         messagesReceived.push(msg.result);
 
         // Build the table header
         let messagesString = `
-      <tr>
-        <th>Flow ID</th><th>Src IP</th><th>Src Port</th><th>Dst IP</th><th>Dst Port</th>
-        <th>Protocol</th><th>Flow start time</th><th>Flow last seen</th>
-        <th>App name</th><th>PID</th><th>Prediction</th><th>Prob</th><th>Risk</th>
-      </tr>`;
+          <tr>
+            <th>Oqim ID si</th>
+            <th>Manba IP si</th>
+            <th>Manba porti</th>
+            <th>Manzil IP si</th>
+            <th>Manzil porti</th>
+            <th>Protokol</th>
+            <th>Oqim boshlanish vaqti</th>
+            <th>Oqim oxirgi kuzatilgan vaqti</th>
+            <th>Ilova nomi</th>
+            <th>PID</th>
+            <th>Bashorat qilish</th>
+            <th>Ehtimollik</th>
+            <th>Tahdid</th>
+          </tr>`;
 
         // Build table rows from messagesReceived in reverse order
         for (let i = messagesReceived.length - 1; i >= 0; i--) {
@@ -52,7 +60,7 @@ $(document).ready(() => {
                 messagesString += `<td>${cell}</td>`;
             }
 
-            messagesString += `<td><a href="/flow-detail?flow_id=${row[0]}"><div>Detail</div></a></td></tr>`;
+            messagesString += `<td><a href="/flow-detail?flow_id=${row[0]}"><div>Tafsilotlar</div></a></td></tr>`;
         }
 
         $('#details').html(messagesString);
