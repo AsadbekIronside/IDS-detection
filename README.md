@@ -1,49 +1,47 @@
-# Real-time Intrusion Detection Web App
-<b>Project III</b><br>
-<b>Nguyễn Việt Hoàng - 20194434</b><br>
-## About
-* Real-time Intrusion Detection System implementing Machine Learning. 
+# Real vaqtda Suqilib Kirishni Aniqlash Veb-Ilovasi
 
-* We combine Supervised learning (RF) for detecting known attacks from CICIDS 2018 & SCVIC-APT datasets, and Unsupervised Learning (AE) for anomaly detection.
+**Loyiha III**  
+**Nguyễn Việt Hoàng - 20194434**
 
-* System descriptive diagram:
-![image](https://github.com/HoangNV2001/Real-time-IDS/assets/72451372/78e0b74c-9db6-4bf5-8591-6d7aa8247b22)
+## Loyihaga doir
 
-## Requirements:
-1. Windows OS.
+- Ushbu loyiha real vaqtda ishlovchi, mashina o‘rganish asosidagi suqilib kirishni aniqlash tizimini (IDS) yaratishdan iborat.
 
-2. Python 3.9:
-    * link 64-bit: https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe 
-    * link 32-bit: https://www.python.org/ftp/python/3.9.13/python-3.9.13.exe
+- Quyidagi yondashuvlardan foydalanilgan:
+    - **Nazoratli o‘rganish (Supervised learning – Random Forest)** – CICIDS 2018 va SCVIC-APT datasetlaridan foydalanib ma’lum hujumlarni aniqlash.
+    - **Nazoratsiz o‘rganish (Unsupervised learning – AutoEncoder)** – noma’lum g‘ayritabiiy xatti-harakatlarni aniqlash.
 
-     <b> Note: select "Add Python 3.9 to PATH" in installation procedure.</b>
+- Tizim tuzilmasi:
 
-3. Npcap 1.71:
-    https://npcap.com/dist/npcap-1.71.exe
+  ![diagram](https://github.com/HoangNV2001/Real-time-IDS/assets/72451372/78e0b74c-9db6-4bf5-8591-6d7aa8247b22)
 
-## Download project folder & environment setups:
-<code>git clone https://github.com/HoangNV2001/APT_Detection
-    cd APT_Detection
-    # Create a virtual environment
-    python3.9 -m venv venv
-    # Activate that virtual environment
-    source venv/bin/activate
-    # Install the project requirements.
-    python -m pip install -r requirements.txt
-    # or: pip install -r requirements.txt</code>
+## Talablar
 
-Run program:
+1. **Windows operatsion tizimi**
 
-<code>python application.py</code>
+2. **Python 3.9**  
+   Yuklab olish havolalari:
+    - [64-bit versiyasi](https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe)
+    - [32-bit versiyasi](https://www.python.org/ftp/python/3.9.13/python-3.9.13.exe)
 
-Web app address: [http://localhost:5000](http://localhost:5000)
+   > **Eslatma:** o‘rnatish vaqtida "Add Python 3.9 to PATH" belgilang.
 
-## Demo GUI
-* Main page, overview of real-time captured flows:
+3. **Npcap 1.71**  
+   Yuklab olish: [npcap-1.71.exe](https://npcap.com/dist/npcap-1.71.exe)
 
-![image](https://github.com/HoangNV2001/Real-time-IDS/assets/72451372/90b42a1a-e2cb-4445-8036-4504e9c7c4ba)
+## O‘rnatish va sozlash
 
-* Flow detail page:
+```bash
+git clone https://github.com/HoangNV2001/APT_Detection
+cd APT_Detection
 
-![image](https://github.com/HoangNV2001/Real-time-IDS/assets/72451372/c6ce1c6b-a006-461e-8872-d889abd69d0d)
+# Virtual muhit yaratish
+python3.9 -m venv venv
 
+# Virtual muhitni faollashtirish
+source venv/bin/activate  # Linux/macOS
+# yoki
+venv\Scripts\activate     # Windows
+
+# Talab qilinadigan kutubxonalarni o‘rnatish
+pip install -r requirements.txt
