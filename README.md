@@ -13,7 +13,7 @@
 
 - Tizim tuzilmasi:
 
-  ![diagram](https://github.com/HoangNV2001/Real-time-IDS/assets/72451372/78e0b74c-9db6-4bf5-8591-6d7aa8247b22)
+  ![diagram](https://github.com/AsadbekIronside/IDS-detection/blob/master/static/images/dashboard.png)
 
 ## Talablar
 
