@@ -1,107 +1,86 @@
-<script>
-    // Add subtle animations on scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px',
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.
-                <!DOCTYPE;
-                html >
-                < html;
-                lang = 'uz' >
-                    < head >
-                    < meta;
-                http - equiv = 'X-UA-Compatible';
-                content = 'IE=edge' >
-                    < meta;
-                http - equiv = 'Content-Type';
-                content = 'text/html;charset=utf8' >
-                    < meta;
-                name = 'viewport';
-                content = 'width=device-width, user-scalable=no' >
-                    < meta;
-                name = 'robots';
-                content = 'noindex, nofollow' >
-                    < script;
-                src = '//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js' ></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    primary: '#1e40af',
-                    secondary: '#3b82f6',
-                    accent: '#06b6d4',
-                    danger: '#ef4444',
-                    success: '#10b981',
-                    warning: '#f59e0b',
-                },
-                fontFamily: {
-                    'sans': ['Inter', 'system-ui', 'sans-serif'],
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>IDS Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#3b82f6',
+                        accent: '#06b6d4',
+                        danger: '#ef4444',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
                 },
             },
-        },
-    };
-</script>
-<style>
-    .gradient-bg {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-
-    .glass-effect {
-        backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .threat-high {
-        background-color: #fee2e2;
-        color: #dc2626;
-    }
-
-    .threat-medium {
-        background-color: #fef3c7;
-        color: #d97706;
-    }
-
-    .threat-low {
-        background-color: #dcfce7;
-        color: #16a34a;
-    }
-
-    .animate-pulse-slow {
-        animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
+        };
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-    }
 
-    .animate-fadeInUp {
-        animation: fadeInUp 0.6s ease-out;
-    }
+        .threat-high {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
 
-    .table-row:hover {
-        background-color: #f8fafc;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        transition: all 0.2s ease-in-out;
-    }
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        .threat-medium {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+
+        .threat-low {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .table-row:hover {
+            background-color: #f8fafc;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
 <!-- Header Section -->
@@ -110,7 +89,7 @@
         <div class="py-8 md:py-10">
             <div class="text-center text-white animate-fadeInUp">
                 <div class="flex items-center justify-center mb-6">
-                    <div class="glass-effect p-4 rounded-full mr-4">
+                    <div class="bg-white bg-opacity-20 p-4 rounded-full mr-4">
                         <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                   d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -119,11 +98,11 @@
                     </div>
                     <div>
                         <h1 class="text-5xl md:text-6xl font-bold tracking-tight">IDS Dashboard</h1>
-                        <p class="text-xl md:text-2xl font-light opacity-90 mt-2">Kirishni Oldini Olish Tizimi</p>
+                        <p class="text-xl md:text-2xl font-light opacity-90 mt-2">Intrusion Prevention System</p>
                     </div>
                 </div>
                 <div class="glass-effect rounded-2xl p-6 inline-block">
-                    <p class="text-lg font-medium">Ishlab chiquvchi: <span class="font-bold text-yellow-300">Asadbek Shariyorov</span>
+                    <p class="text-lg font-medium">Developed by <span class="font-bold text-yellow-300">Asadbek Shariyorov</span>
                     </p>
                 </div>
             </div>
@@ -133,7 +112,6 @@
 
 <!-- Main Content -->
 <div class="max-w-[1450px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div class="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300">
@@ -278,7 +256,7 @@
 </footer>
 
 <script>
-    // Add subtle animations on scroll
+    // Scroll animation with IntersectionObserver
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px',
@@ -295,7 +273,7 @@
 
     // Apply initial styles and observe elements
     document.addEventListener('DOMContentLoaded', () => {
-        const cards = document.querySelectorAll('.bg-white\\/80');
+        const cards = document.querySelectorAll('.bg-white');
         cards.forEach((card, index) => {
             card.style.transform = 'translateY(30px)';
             card.style.opacity = '0';
